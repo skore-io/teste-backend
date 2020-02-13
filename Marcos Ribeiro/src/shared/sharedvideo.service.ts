@@ -11,13 +11,13 @@ export abstract class SharedVideoService<T> {
             let video = await this.model.findById(id)
             if (!video) throw new SharedException('Register not Found.')
 
-            return this.videoExpired(video, false)
+            return this.videoExpired(video, true)
         } catch (e) {
             throw new SharedException(e)
         }
     }
 
-    async videoExpired(video, update?: boolean) {
+    async videoExpired(video, watched?: boolean) {
         try {
             let objectExpireDate = video.expires_at.valueOf()
             let actualDate = Date.now().valueOf()
@@ -28,7 +28,7 @@ export abstract class SharedVideoService<T> {
                     { new: true }
                 )
 
-            return this.videoWatched(video, update)
+            return this.videoWatched(video, watched)
 
         } catch (e) {
             throw new SharedException(e)
@@ -36,19 +36,11 @@ export abstract class SharedVideoService<T> {
 
     }
 
-    async videoWatched(video, update?: boolean) {
-        if (!update) {
-            return await this.model
-                .findByIdAndUpdate(
-                    video.id,
-                    { $set: { watched: true } },
-                    { new: true }
-                )
-        }
+    async videoWatched(video, watched?: boolean) {
         return await this.model
             .findByIdAndUpdate(
                 video.id,
-                { $set: { watched: false } },
+                { $set: { watched: watched } },
                 { new: true }
             )
     }

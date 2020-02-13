@@ -29,7 +29,7 @@ export class VideoService extends SharedVideoService<Video> {
         let video = await this.videoModel.findById(_id)
         if (!video) throw new SharedException('Video not Found')
         await video.updateOne(videoDTO)
-        return this.videoWatched(video, true)
+        return this.videoWatched(video, false)
     }
 
     async delete(_id: string): Promise<any> {
