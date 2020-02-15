@@ -1,0 +1,13 @@
+version: '2'
+services:
+    mongodb:
+        image: mongo:latest
+        container_name: "skore-mongodb"
+        environment:
+          - MONGO_INITDB_DATABASE=skore-mongodb
+          - MONGO_INITDB_ROOT_USERNAME=root
+          - MONGO_INITDB_ROOT_PASSWORD=root
+        volumes:
+          - ./data/db:/data/db
+        ports:
+            - 27017:27017
