@@ -1,8 +1,6 @@
-import { Request } from 'express';
-
 abstract class AbstractService {
 
-    abstract processData(requestDTO: Request): any;
+    abstract process(contentDTO: any): any;
 }
 
 export default AbstractService
