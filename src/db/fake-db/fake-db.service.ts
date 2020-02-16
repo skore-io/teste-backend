@@ -36,8 +36,12 @@ class FakeDbService {
         return "Objeto removido com sucesso."
     } 
 
-    list() : Array<Content> {
-        return this.data
+    findBy(id : Number) : any {
+        const existedContent =  this.data.find(content => content.id === id)
+
+        if(existedContent) return existedContent
+        
+        throw "Objeto não existe."
     }
 
     private existsObject(id : number) : boolean {

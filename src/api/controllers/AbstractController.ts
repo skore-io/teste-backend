@@ -19,7 +19,7 @@ export default abstract class AbstractController<Service extends AbstractService
             return response.status(this.getErrorCode()).json(this.buildErrorResponse(e))
         }
 
-        return response.status(this.getSuccessCode()).json(responseDTO)
+        return response.status(this.getSuccessCode()).json(this.buildSuccessResponse(responseDTO))
     }
 
     buildSuccessResponse(result) {

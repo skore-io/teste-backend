@@ -3,13 +3,13 @@ import AbstractService from '../../AbstractService';
 import FakeDbService from '../../../../db/fake-db/fake-db.service';
 
 @Injectable()
-export class ListContentService extends AbstractService {
+export class GetContentService extends AbstractService {
 
     constructor(@Inject(FakeDbService) db) {
         super(db)
     }
 
-    process() {
-        return this.db.list()
+    process(id : Number) {
+        return this.db.findBy(id)
     }
 }
