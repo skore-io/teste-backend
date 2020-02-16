@@ -1,4 +1,4 @@
-import AbstractService from "src/services/AbstractService";
+import AbstractService from "../services/AbstractService";
 import { Request, Response } from 'express';
 
 export default abstract class AbstractController<Service extends AbstractService> {
@@ -13,7 +13,7 @@ export default abstract class AbstractController<Service extends AbstractService
 
         try {
             this.preExecutionCheck(requestDTO);
-            responseDTO = service.processData(requestDTO)
+            responseDTO = service.process(requestDTO)
             this.posExecutionCheck(responseDTO);
         } catch (e) {
             return response.status(this.getErrorCode()).json(this.buildErrorResponse(e))

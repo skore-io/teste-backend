@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import AbstractService from 'src/services/AbstractService';
-import { FakeDbService } from 'src/db/fake-db/fake-db.service';
+import AbstractService from '../../AbstractService';
+import FakeDbService from '../../../../db/fake-db/fake-db.service';
 
 @Injectable()
 export class ListContentService extends AbstractService {

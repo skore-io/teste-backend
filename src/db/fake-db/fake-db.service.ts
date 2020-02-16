@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import Content from 'src/models/ContentInterface';
-import ContentDTO from 'src/dto/ContentDTO';
+import Content from 'src/db/models/ContentInterface';
+import ContentDTO from '../../api/dtos/ContentDTO';
 
 @Injectable()
-export class FakeDbService {
+class FakeDbService {
 
     data: Array<Content>;
 
@@ -44,3 +44,5 @@ export class FakeDbService {
         return !! this.data.find(content => content.id === id)
     }
 }
+
+export default FakeDbService
