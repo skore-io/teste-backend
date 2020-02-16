@@ -1,20 +1,15 @@
 import * as request from 'supertest';
 import { BASIC_BODY, UPDATE_CONTENT_URL, CREATE_CONTENT_URL } from '../../../../constants/constants'
 import { INestApplication } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../../../../../src/app.module';
 import { OBJECT_NOT_EXISTS } from '../../../../../src/messages/messages';
+import { buildServerApp } from '../../../../utils/ServerCreator'
 
 describe('UpdateContent', () => {
     let app: INestApplication;
 
     beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
-    
-        app = moduleFixture.createNestApplication();
-        await (await app.init());
+        app = await buildServerApp()
+        await app.init()
     })
 
     it('should throw an error because not exist a content with id 0', async done => {

@@ -1,20 +1,15 @@
 import * as request from 'supertest';
 import { BASIC_BODY, CREATE_CONTENT_URL } from '../../../../constants/constants'
 import { INestApplication } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../../../../../src/app.module';
 import { INVALID_ID } from '../../../../../src/messages/messages';
+import { buildServerApp } from '../../../../utils/ServerCreator'
 
 describe('CreateContent', () => {
     let app: INestApplication;
 
     beforeEach(async () => {
-        const moduleFixture: TestingModule = await Test.createTestingModule({
-            imports: [AppModule],
-        }).compile();
-    
-        app = moduleFixture.createNestApplication();
-        await (await app.init());
+        app = await buildServerApp()
+        await app.init()
     })
 
     it('should create a new content', done => {
