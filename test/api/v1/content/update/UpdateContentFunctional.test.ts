@@ -1,25 +1,35 @@
 import * as request from 'supertest';
-import { API_URL, BASIC_BODY } from '../../../../constants/constants'
-
-const RESOURCE_URL = `${API_URL}/v1/content`
-
-beforeAll(() => {
-    // request(RESOURCE_URL).post('create')
-    //     .send(BASIC_BODY).expect(201, {...BASIC_BODY, watched: false, expired: false})
-})
+import { BASIC_BODY } from '../../../../constants/constants'
+import { INestApplication } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../../../../../src/app.module';
 
 describe('UpdateContent', () => {
+    let app: INestApplication;
+
+    beforeEach(async () => {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile();
     
-    it('should throw an error because not exist a content with id 0', () => {
-        // request(RESOURCE_URL).post('update')
-        //     .send({...BASIC_BODY, id: 0}).expect(500, { error: "Objeto inválido para atualização" })
+        app = moduleFixture.createNestApplication();
+        await (await app.init());
     })
 
-    it('should update a existing content', () => {
-        // request(RESOURCE_URL).post('update')
-        //     .send({...BASIC_BODY, media_type: 'doc'}).expect(200, 
-        //         { response: {...BASIC_BODY, media_type: 'doc'} }
-        //     )
+    it('should throw an error because not exist a content with id 0', async done => {
+        request(app.getHttpServer()).post('/api/v1/content/update')
+            .send({...BASIC_BODY, id: 0}).expect(500, { error: "Objeto inválido para atualização" })
+            .end((err, res) => err? done(err) : done())
+    })
+
+    it('should update a existing content', async done => {
+        await request(app.getHttpServer()).post('/api/v1/content/create')
+            .send(BASIC_BODY)
+
+        request(app.getHttpServer()).post('/api/v1/content/update')
+            .send({...BASIC_BODY, media_type: 'doc'})
+            .expect(200, { response: {...BASIC_BODY, media_type: 'doc', watched: false, expired: false} })
+            .end((err, res) => err? done(err) : done())
     })
 });
 

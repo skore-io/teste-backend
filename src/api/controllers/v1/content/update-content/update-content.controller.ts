@@ -23,7 +23,7 @@ export class UpdateContentController extends AbstractController<UpdateContentSer
     posExecutionCheck() {}
 
     getSuccessCode() {
-        return 201
+        return 200
     }
 
     getErrorCode() {

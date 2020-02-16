@@ -1,12 +1,27 @@
 import * as request from 'supertest';
-import { API_URL, BASIC_BODY } from '../../../../constants/constants'
+import { BASIC_BODY } from '../../../../constants/constants'
+import { INestApplication } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '../../../../../src/app.module';
 
 describe('GetContent', () => {
-    const RESOURCE_URL = `${API_URL}/v1/content`
+    let app: INestApplication;
 
-    it('should list existing contents', () => {
-        // request(RESOURCE_URL).post('create').send(BASIC_BODY)
-        // await request(RESOURCE_URL).get('0').expect(200)
+    beforeEach(async () => {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile();
+    
+        app = moduleFixture.createNestApplication();
+        await (await app.init());
+    })
+
+    it('should list existing contents', async done => {
+        await request(app.getHttpServer()).post('/api/v1/content/create').send(BASIC_BODY)
+        
+        request(app.getHttpServer()).get('/api/v1/content/1')
+        .expect(200)
+        .end((err, res) => err? done(err) : done())
     })
 });
 
