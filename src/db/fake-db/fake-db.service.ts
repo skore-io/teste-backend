@@ -11,22 +11,14 @@ class FakeDbService {
         this.data = []   
     }
 
-    persist(contentDTO : ContentDTO) : Content {
-        if(this.existsObject(contentDTO.id)) throw "Id inválido"
-
-        const contentToPersist = {...contentDTO, watched: false, expired: false }
-
-        this.data.push(contentToPersist)
-        return contentToPersist
+    persist(content : Content) : void {
+        if(this.existsObject(content.id)) throw "Id inválido"
+        this.data.push(content)
     }
 
-    merge(contentDTO : ContentDTO) : Content {
-        if (!this.existsObject(contentDTO.id)) throw "Objeto inválido para atualização"
-
-        const existedContent = this.data.find(content => content.id === contentDTO.id)
-
-        Object.keys(contentDTO).forEach(key => existedContent[key] = contentDTO[key])
-        return existedContent
+    merge(content : Content) : Content {
+        if (!this.existsObject(content.id)) throw "Objeto inválido para atualização"
+        return content
     }
 
     delete(id : number) : string {
@@ -36,8 +28,8 @@ class FakeDbService {
         return "Objeto removido com sucesso."
     } 
 
-    findBy(id : Number) : any {
-        const existedContent =  this.data.find(content => content.id === id)
+    findBy(id : Number) : Content {
+        const existedContent = this.data.find(content => content.id === id)
 
         if(existedContent) return existedContent
         

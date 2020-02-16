@@ -28,6 +28,6 @@ export class CreateContentController extends AbstractController<CreateContentSer
     }
 
     getErrorCode() {
-        return 500
+        return 422
     }
 }

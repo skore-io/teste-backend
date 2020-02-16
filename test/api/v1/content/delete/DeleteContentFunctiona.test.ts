@@ -18,7 +18,7 @@ describe('DeleteContent', () => {
 
     it('should throw an error because not exist a content with id 0', done => {
         request(app.getHttpServer()).delete('/api/v1/content/delete/0')
-            .expect(500, { error: "Objeto inválido para remoção" })
+            .expect(422, { error: "Objeto inválido para remoção" })
             .end((err, res) => err? done(err) : done())
     })
 

@@ -3,7 +3,7 @@ export default interface ContentDTO {
     name: string,
     duration: number,
     provider: string,
-    mediaType: string,
-    providerId: string,
-    expiresAt: number,
+    media_type: string,
+    provider_id: string,
+    expires_at: number,
 }

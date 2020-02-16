@@ -10,7 +10,12 @@ export class UpdateContentService extends AbstractService {
         super(db)
     }
 
-    process(content : ContentDTO) {
+    process(contentDTO : ContentDTO) {
+        const content = this.db.findBy(contentDTO.id)
+        
+        Object.keys(contentDTO).forEach(key => content[key] = contentDTO[key])
+        content.watched = false
+
         return this.db.merge(content)
     }
 }

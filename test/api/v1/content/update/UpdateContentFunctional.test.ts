@@ -18,7 +18,7 @@ describe('UpdateContent', () => {
 
     it('should throw an error because not exist a content with id 0', async done => {
         request(app.getHttpServer()).post('/api/v1/content/update')
-            .send({...BASIC_BODY, id: 0}).expect(500, { error: "Objeto inválido para atualização" })
+            .send({...BASIC_BODY, id: 0}).expect(422, { error: "Objeto não existe." })
             .end((err, res) => err? done(err) : done())
     })
 

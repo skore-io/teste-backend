@@ -26,6 +26,6 @@ export class DeleteContentController extends AbstractController<DeleteContentSer
     }
 
     getErrorCode() {
-        return 500
+        return 422
     }
 }

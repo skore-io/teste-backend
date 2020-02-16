@@ -29,7 +29,7 @@ describe('CreateContent', () => {
 
         request(app.getHttpServer()).post('/api/v1/content/create')
             .send(BASIC_BODY)
-            .expect(500, { error: "Id inválido" })
+            .expect(422, { error: "Id inválido" })
             .end((err, res) => err? done(err) : done())
     })
 });

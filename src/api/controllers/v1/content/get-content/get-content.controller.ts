@@ -27,6 +27,6 @@ export class GetContentController extends AbstractController<GetContentService> 
     }
 
     getErrorCode() {
-        return 500
+        return 422
     }
 }

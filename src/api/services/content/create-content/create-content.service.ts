@@ -11,6 +11,8 @@ export class CreateContentService extends AbstractService {
     }
 
     process(contentDTO : ContentDTO) {
-        return this.db.persist(contentDTO)
+        const contentToPersist = {...contentDTO, watched: false, expired: false }
+        this.db.persist(contentToPersist)
+        return contentToPersist
     }
 }

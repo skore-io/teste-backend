@@ -1,6 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
+
 import AbstractService from '../../AbstractService';
 import FakeDbService from '../../../../db/fake-db/fake-db.service';
+
+import * as moment from 'moment'
 
 @Injectable()
 export class GetContentService extends AbstractService {
@@ -10,6 +13,14 @@ export class GetContentService extends AbstractService {
     }
 
     process(id : Number) {
-        return this.db.findBy(id)
+        const content = this.db.findBy(id)
+
+        const todayDate = moment()
+        const expiresDay = moment.unix(content.expires_at)
+
+        content.expired = expiresDay.isAfter(todayDate)
+        content.watched = true
+
+        return content
     }
 }

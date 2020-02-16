@@ -27,6 +27,6 @@ export class UpdateContentController extends AbstractController<UpdateContentSer
     }
 
     getErrorCode() {
-        return 500
+        return 422
     }
 }
