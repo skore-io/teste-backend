@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Content from 'src/db/models/ContentInterface';
-import { OBJECT_NOT_EXISTS, DELETE_OK, INVALID_ID } from '../../../src/messages/messages'
+import { OBJECT_NOT_EXISTS, DELETE_OK, INVALID_ID } from '../../messages/messages'
 
 @Injectable()
 class FakeDbService {

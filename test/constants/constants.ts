@@ -1,4 +1,7 @@
-export const API_URL = 'http://localhost:3000/api'
+export const CREATE_CONTENT_URL = '/api/v1/content/create'
+export const UPDATE_CONTENT_URL = '/api/v1/content/update'
+export const DELETE_CONTENT_URL = '/api/v1/content/delete'
+export const GET_CONTENT_URL = '/api/v1/content'
 
 export const BASIC_BODY = {
     "id": 1,
