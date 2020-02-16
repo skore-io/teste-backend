@@ -4,10 +4,10 @@ import { CreateContentService } from './api/services/content/create-content/crea
 import { UpdateContentService } from './api/services/content/update-content/update-content.service';
 import { DeleteContentService } from './api/services/content/delete-content/delete-content.service';
 import { ListContentService } from './api/services/content/list-content/list-content.service';
-import { CreateContentController } from './api/controllers/api/v1/content/create-content/create-content.controller';
-import { UpdateContentController } from './api/controllers/api/v1/content/update-content/update-content.controller';
-import { ListContentController } from './api/controllers/api/v1/content/list-content/list-content.controller';
-import { DeleteContentController } from './api/controllers/api/v1/content/delete-content/delete-content.controller';
+import { CreateContentController } from './api/controllers/v1/content/create-content/create-content.controller';
+import { UpdateContentController } from './api/controllers/v1/content/update-content/update-content.controller';
+import { ListContentController } from './api/controllers/v1/content/list-content/list-content.controller';
+import { DeleteContentController } from './api/controllers/v1/content/delete-content/delete-content.controller';
 
 @Module({
     imports: [],

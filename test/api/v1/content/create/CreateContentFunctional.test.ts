@@ -1,7 +1,7 @@
 import * as request from 'supertest';
 import { API_URL, BASIC_BODY } from '../../../../constants/constants'
 
-describe('AppController (e2e)', () => {
+describe('CreateContent', () => {
     const RESOURCE_URL = `${API_URL}/v1/content`
     
     it('should create a new content', () => {
