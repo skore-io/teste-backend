@@ -8,18 +8,16 @@ beforeAll(() => {
         .send(BASIC_BODY).expect(201, {...BASIC_BODY, watched: false, expired: false})
 })
 
-describe('UpdateContent', () => {
+describe('DeleteContent', () => {
     
     it('should throw an error because not exist a content with id 0', () => {
-        request(RESOURCE_URL).post('update')
-            .send({...BASIC_BODY, id: 0}).expect(500, { error: "Objeto inválido para atualização" })
+        request(RESOURCE_URL).delete('delete/0')
+            .expect(500, { error: "Objeto inválido para remoção" })
     })
 
     it('should update a existing content', () => {
-        request(RESOURCE_URL).post('update')
-            .send({...BASIC_BODY, media_type: 'doc'}).expect(200, 
-                { response: {...BASIC_BODY, media_type: 'doc'} }
-            )
+        request(RESOURCE_URL).delete('delete/0')
+            .expect(200, { response: "Objeto removido com sucesso." })
     })
 });
 

@@ -6,7 +6,7 @@ describe('CreateContent', () => {
     
     it('should create a new content', () => {
         request(RESOURCE_URL).post('create')
-            .send(BASIC_BODY).expect(201, {...BASIC_BODY, watched: false, expired: false})
+            .send(BASIC_BODY).expect(201, { response: {...BASIC_BODY, watched: false, expired: false} })
     });
 
     it('should not create new content with existing id', () => {
