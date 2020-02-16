@@ -18,7 +18,7 @@ export class GetContentService extends AbstractService {
         const todayDate = moment()
         const expiresDay = moment.unix(content.expires_at)
 
-        content.expired = expiresDay.isAfter(todayDate)
+        content.expired = todayDate.isAfter(expiresDay)
         content.watched = true
 
         return content
