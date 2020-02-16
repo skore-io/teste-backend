@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Content from 'src/db/models/ContentInterface';
-import ContentDTO from '../../api/dtos/ContentDTO';
+import { OBJECT_NOT_EXISTS, DELETE_OK, INVALID_ID } from '../../../src/messages/messages'
 
 @Injectable()
 class FakeDbService {
@@ -12,20 +12,17 @@ class FakeDbService {
     }
 
     persist(content : Content) : void {
-        if(this.existsObject(content.id)) throw "Id inválido"
+        if(this.existsObject(content.id)) throw INVALID_ID
         this.data.push(content)
     }
 
     merge(content : Content) : Content {
-        if (!this.existsObject(content.id)) throw "Objeto inválido para atualização"
         return content
     }
 
-    delete(id : number) : string {
-        if(!this.existsObject(id)) throw "Objeto inválido para remoção"
-    
-        this.data = this.data.filter(content => content.id !== id)
-        return "Objeto removido com sucesso."
+    delete(content : Content) : string {
+        this.data = this.data.filter(c => c.id !== content.id)
+        return DELETE_OK
     } 
 
     findBy(id : Number) : Content {
@@ -33,7 +30,7 @@ class FakeDbService {
 
         if(existedContent) return existedContent
         
-        throw "Objeto não existe."
+        throw OBJECT_NOT_EXISTS
     }
 
     private existsObject(id : number) : boolean {

@@ -3,6 +3,7 @@ import { BASIC_BODY } from '../../../../constants/constants'
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../../../src/app.module';
+import { INVALID_ID } from '../../../../../src/messages/messages';
 
 describe('CreateContent', () => {
     let app: INestApplication;
@@ -29,7 +30,7 @@ describe('CreateContent', () => {
 
         request(app.getHttpServer()).post('/api/v1/content/create')
             .send(BASIC_BODY)
-            .expect(422, { error: "Id inválido" })
+            .expect(422, { error: INVALID_ID })
             .end((err, res) => err? done(err) : done())
     })
 });

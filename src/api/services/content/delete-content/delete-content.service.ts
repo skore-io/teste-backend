@@ -10,6 +10,7 @@ export class DeleteContentService extends AbstractService {
     }
 
     process(id : number) {
-        return this.db.delete(id)
+        const content = this.db.findBy(id)
+        return this.db.delete(content)
     }
 }

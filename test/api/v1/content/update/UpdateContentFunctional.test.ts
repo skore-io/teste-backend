@@ -3,6 +3,7 @@ import { BASIC_BODY } from '../../../../constants/constants'
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../../../../../src/app.module';
+import { OBJECT_NOT_EXISTS } from '../../../../../src/messages/messages';
 
 describe('UpdateContent', () => {
     let app: INestApplication;
@@ -18,7 +19,7 @@ describe('UpdateContent', () => {
 
     it('should throw an error because not exist a content with id 0', async done => {
         request(app.getHttpServer()).post('/api/v1/content/update')
-            .send({...BASIC_BODY, id: 0}).expect(422, { error: "Objeto não existe." })
+            .send({...BASIC_BODY, id: 0}).expect(422, { error: OBJECT_NOT_EXISTS })
             .end((err, res) => err? done(err) : done())
     })
 
