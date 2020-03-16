@@ -4,6 +4,8 @@ import { MediaService } from './media.service';
 import { MediaRepository } from './media.repository';
 import { Media } from './media.entitity';
 import MediaExceptions from './media.exceptions';
+import { MediaBO } from './media.bo';
+import { InternalServerErrorException } from '@nestjs/common';
 
 describe('Mídia - Criação: ', () => {
   let mediaController: MediaController;
@@ -12,14 +14,14 @@ describe('Mídia - Criação: ', () => {
   beforeEach(async () => {
     const mediaModule = await Test.createTestingModule({
       controllers: [MediaController],
-      providers: [MediaService, MediaRepository]
+      providers: [MediaBO, MediaService, MediaRepository]
     }).compile();
 
     mediaController = mediaModule.get<MediaController>(MediaController);
     mediaDAO = mediaModule.get<MediaRepository>(MediaRepository);
   });
 
-  it('Conteúdo de mídia gerado com SUCESSO.', async () => {
+  it('Conteúdo de mídia gerado com SUCESSO.', () => {
     const newMedia = new Media({
       id: 1,
       name: "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
@@ -30,12 +32,13 @@ describe('Mídia - Criação: ', () => {
       expires_at: 1580428851394,
     })
 
-    jest.spyOn(mediaDAO, 'findById').mockImplementation(async () => null);
+    jest.spyOn(mediaDAO, 'create').mockImplementation(() => newMedia);
+    jest.spyOn(mediaDAO, 'findById').mockImplementation(() => null);
 
-    await expect(mediaController.createMedia(newMedia)).resolves.toBe(newMedia);
+    expect(mediaController.createMedia(newMedia)).toStrictEqual(newMedia);
   });
 
-  it('EXCEÇÃO: Conteúdo de mídia existente.', async () => {
+  it('EXCEÇÃO: Conteúdo de mídia existente.', () => {
     const newMedia = new Media({
       id: 1,
       name: "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
@@ -46,8 +49,8 @@ describe('Mídia - Criação: ', () => {
       expires_at: 1580428851394,
     })
 
-    jest.spyOn(mediaDAO, 'findById').mockImplementation(async () => newMedia);
+    jest.spyOn(mediaDAO, 'findById').mockImplementation(() => newMedia);
 
-    await expect(mediaController.createMedia(newMedia)).rejects.toThrow(MediaExceptions.EXISTINT_MEDIA);
+    expect(() => mediaController.createMedia(newMedia)).toThrowError();
   });
 });
