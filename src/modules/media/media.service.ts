@@ -12,4 +12,11 @@ export class MediaService {
 
     return this.mediaRepository.create(media);
   }
+
+  getMedia(id: number): Media {
+    const media = this.mediaRepository.findById(id);
+
+
+    return this.mediaRepository.create(media);
+  }
 }
