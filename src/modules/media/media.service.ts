@@ -14,9 +14,10 @@ export class MediaService {
   }
 
   getMedia(id: number): Media {
-    const media = this.mediaRepository.findById(id);
+    const media = this.mediaBO.getMidia(id);
 
+    this.mediaBO.isExpired(media);
 
-    return this.mediaRepository.create(media);
+    return this.mediaBO.isWatched(media);
   }
 }
