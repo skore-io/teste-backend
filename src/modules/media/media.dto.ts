@@ -1,30 +1,30 @@
-import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
+import { IsNumber, IsNotEmpty, IsString, IsOptional } from 'class-validator';
 export class MediaDTO {
   @IsNotEmpty()
   @IsNumber()
   id: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   duration: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   provider: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   media_type: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   provider_id: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   expires_at: number;
 

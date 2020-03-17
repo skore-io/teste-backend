@@ -67,4 +67,14 @@ export class MediaBO {
 
     return mediaCopy;
   }
+
+  /**
+   * Atribui falso a propriedade 'watched' de uma mídia em memória.
+   * 
+   * @param media Media
+   * @returns void
+   */
+  setMediaNotWatched(media: Media): void {
+    media.watched = false;
+  }
 }

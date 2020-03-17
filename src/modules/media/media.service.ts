@@ -22,6 +22,12 @@ export class MediaService {
   }
 
   updateMedia(newMedia: Media): Media {
-    return newMedia;
+    const oldMedia = this.mediaBO.getMidia(newMedia.id);
+
+    const updatedMedia = this.mediaRepository.update(newMedia, oldMedia);
+
+    this.mediaBO.setMediaNotWatched(updatedMedia);
+
+    return updatedMedia;
   }
 }

@@ -181,7 +181,7 @@ describe('Mídia - Alteração: ', () => {
     mediaController.updateMedia(newMedia);
 
     media = mediaController.getMedia(1);
-    
+
     expect(media.watched).toStrictEqual(false);
   });
 });

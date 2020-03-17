@@ -41,6 +41,12 @@ export class MediaRepository {
    * @returns media
    */
   update(newMedia: Media, oldMedia: Media): Media {
+    for (const key in newMedia) {
+      if (newMedia.hasOwnProperty(key) && oldMedia.hasOwnProperty(key)) {
+        oldMedia[key] = newMedia[key];
+      }
+    }
+
     return oldMedia;
   }
 }
