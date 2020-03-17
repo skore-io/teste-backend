@@ -30,4 +30,8 @@ export class MediaService {
 
     return updatedMedia;
   }
+
+  removeMedia(idMedia: number): void {
+    this.mediaRepository.remove(idMedia);
+  }
 }

@@ -75,7 +75,7 @@ describe('Mídia - Detalhar: ', () => {
   });
 
 
-  it('Detalha mídia com sucesso.', () => {
+  it('Detalha mídia com SUCESSO.', () => {
     const media = mediaController.getMedia(1);
 
     expect(media).toBeDefined();
@@ -158,7 +158,7 @@ describe('Mídia - Alteração: ', () => {
   });
 
 
-  it('Mídia alterada com sucesso.', () => {
+  it('Mídia alterada com SUCESSO.', () => {
     const updatedMedia = mediaController.updateMedia(newMedia);
 
     // Propriedades sobrescrevidas
@@ -183,5 +183,41 @@ describe('Mídia - Alteração: ', () => {
     media = mediaController.getMedia(1);
 
     expect(media.watched).toStrictEqual(false);
+  });
+});
+
+describe('Mídia - Remoção: ', () => {
+  let mediaController: MediaController;
+  let mediaRepository: MediaRepository;
+  let mediaMock: Media;
+
+  beforeEach(async () => {
+    const mediaModule = await Test.createTestingModule({
+      controllers: [MediaController],
+      providers: [MediaBO, MediaService, MediaRepository, Utils]
+    }).compile();
+
+    mediaController = mediaModule.get<MediaController>(MediaController);
+    mediaRepository = mediaModule.get<MediaRepository>(MediaRepository);
+
+    mediaMock = new Media({
+      id: 1,
+      name: "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
+      duration: 3006,
+      provider: "youtube",
+      media_type: "video",
+      provider_id: "STKCRSUsyP0",
+      expires_at: 1580428851394,
+    })
+
+    jest.spyOn(mediaRepository, 'findById').mockImplementation(() => mediaMock);
+    jest.spyOn(mediaRepository, 'remove').mockImplementation(() => { return; });
+  });
+
+
+  it('Remove mídia com SUCESSO.', () => {
+    const media = mediaController.removeMedia(1);
+
+    expect(media).not.toBeDefined();
   });
 });

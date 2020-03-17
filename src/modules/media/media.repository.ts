@@ -49,4 +49,16 @@ export class MediaRepository {
 
     return oldMedia;
   }
+
+  /**
+   * Remove mídia em memória.
+   * 
+   * @param idMedia number
+   * @returns void
+   */
+  remove(id: number): void {
+    const media = this.findById(id);
+
+    this.medias.splice(this.medias.indexOf(media), 1);
+  }
 }

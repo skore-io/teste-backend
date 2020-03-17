@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, ParseIntPipe, Patch, Delete } from '@nestjs/common';
 import { Media } from './media.entitity';
 import { MediaService } from './media.service';
 import { MediaDTO } from './media.dto';
@@ -10,6 +10,11 @@ export class MediaController {
   @Get(':id')
   public getMedia(@Param('id', new ParseIntPipe()) idMedia): Media {
     return this.mediaService.getMedia(idMedia);
+  }
+
+  @Delete('/:id')
+  public removeMedia(@Param('id', new ParseIntPipe()) idMedia): void {
+    return this.mediaService.removeMedia(idMedia);
   }
 
   @Post('/')
