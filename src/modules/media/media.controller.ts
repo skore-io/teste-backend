@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
 import { Media } from './media.entitity';
 import { MediaService } from './media.service';
 import { MediaDTO } from './media.dto';
@@ -15,5 +15,10 @@ export class MediaController {
   @Post('/')
   public createMedia(@Body() media: MediaDTO): Media {
     return this.mediaService.createMedia(media);
+  }
+
+  @Patch('/')
+  public updateMedia(@Body() media: MediaDTO): Media {
+    return this.mediaService.updateMedia(media);
   }
 }

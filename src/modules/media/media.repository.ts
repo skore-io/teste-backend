@@ -6,7 +6,7 @@ export class MediaRepository {
   medias: Media[];
 
   constructor() {
-    this.medias = []
+    this.medias = [];
   }
 
   /**
@@ -31,5 +31,16 @@ export class MediaRepository {
     this.medias.push(newMedia);
 
     return newMedia;
+  }
+
+  /**
+   * Altera mídia em memória.
+   * 
+   * @param newMedia Media
+   * @param oldMedia Media
+   * @returns media
+   */
+  update(newMedia: Media, oldMedia: Media): Media {
+    return oldMedia;
   }
 }

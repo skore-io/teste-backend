@@ -20,4 +20,8 @@ export class MediaService {
 
     return this.mediaBO.isWatched(media);
   }
+
+  updateMedia(newMedia: Media): Media {
+    return newMedia;
+  }
 }

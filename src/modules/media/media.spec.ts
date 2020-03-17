@@ -85,7 +85,7 @@ describe('Mídia - Detalhar: ', () => {
 
   it('Retorna mídia com propriedade expired VERDADEIRA (Timestamp da propriedade expires_at MENOR que a data atual).', () => {
     jest.spyOn(utils, 'getUTCTimestamp').mockImplementation(() => 1580428900000);
-    
+
     const media = mediaController.getMedia(1);
 
     expect(media.expired).toStrictEqual(true);
@@ -119,5 +119,69 @@ describe('Mídia - Detalhar: ', () => {
     jest.spyOn(mediaRepository, 'findById').mockImplementation(() => null);
 
     expect(() => mediaController.getMedia(1)).toThrowError();
+  });
+});
+
+describe('Mídia - Alteração: ', () => {
+  let mediaController: MediaController;
+  let mediaRepository: MediaRepository;
+  let mediaMock: Media;
+  let newMedia: Media;
+
+  beforeEach(async () => {
+    const mediaModule = await Test.createTestingModule({
+      controllers: [MediaController],
+      providers: [MediaBO, MediaService, MediaRepository, Utils]
+    }).compile();
+
+    mediaController = mediaModule.get<MediaController>(MediaController);
+    mediaRepository = mediaModule.get<MediaRepository>(MediaRepository);
+
+    mediaMock = new Media({
+      id: 1,
+      name: "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
+      duration: 3006,
+      provider: "youtube",
+      media_type: "video",
+      provider_id: "STKCRSUsyP0",
+      expires_at: 1580428851394,
+    })
+
+    newMedia = new Media({
+      id: 1,
+      name: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      duration: 8000,
+      provider: "vimeo"
+    })
+
+    jest.spyOn(mediaRepository, 'findById').mockImplementation(() => mediaMock);
+  });
+
+
+  it('Mídia alterada com sucesso.', () => {
+    const updatedMedia = mediaController.updateMedia(newMedia);
+
+    // Propriedades sobrescrevidas
+    expect(updatedMedia.name).toStrictEqual(newMedia.name);
+    expect(updatedMedia.duration).toStrictEqual(newMedia.duration);
+    expect(updatedMedia.provider).toStrictEqual(newMedia.provider);
+
+    // Propriedades mantidas
+    expect(updatedMedia.media_type).toStrictEqual(mediaMock.media_type);
+    expect(updatedMedia.provider_id).toStrictEqual(mediaMock.provider_id);
+    expect(updatedMedia.expires_at).toStrictEqual(mediaMock.expires_at);
+  });
+
+  it('Propriedade watched após ser alterada DEVE ser falsa', () => {
+    let media: Media;
+
+    media = mediaController.getMedia(1);
+    media = mediaController.getMedia(1);
+
+    mediaController.updateMedia(newMedia);
+
+    media = mediaController.getMedia(1);
+    
+    expect(media.watched).toStrictEqual(false);
   });
 });
