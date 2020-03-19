@@ -10,7 +10,7 @@ export class VideosService {
     const index = this.getIndexVideo(video.id);
     
     if (this.validIndex(index)) {
-      new HttpException('Duplicate video id!', 422);
+      throw new HttpException('Duplicate video id!', 422);
     }
 
     video = this.assignWatched(video, false);

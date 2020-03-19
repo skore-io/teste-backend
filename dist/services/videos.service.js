@@ -15,7 +15,7 @@ let VideosService = class VideosService {
     create(video) {
         const index = this.getIndexVideo(video.id);
         if (this.validIndex(index)) {
-            new common_2.HttpException('Duplicate video id!', 422);
+            throw new common_2.HttpException('Duplicate video id!', 422);
         }
         video = this.assignWatched(video, false);
         this.videos.push(video);

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from '../dto/create-video.dto';
+import { HttpException } from '@nestjs/common';
 
 describe('VideosService', () => {
   let service: VideosService;
@@ -18,7 +19,7 @@ describe('VideosService', () => {
   });
 
   describe("Create video", () => {
-    it("should return a object video", () => {      
+    it("should return a object video with watched false", () => {      
       const videoParams: CreateVideoDto = {
         "id": 1,
         "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
@@ -36,7 +37,8 @@ describe('VideosService', () => {
         "provider": "youtube",
         "media_type": "video",
         "provider_id": "STKCRSUsyP0",
-        "expires_at": 1580428851394
+        "expires_at": 1580428851394,
+        "watched": false,
       }
 
       const videoCreated = service.create(videoParams);
@@ -59,12 +61,11 @@ describe('VideosService', () => {
         "expires_at": 1580428851394
       }
 
-      const videoCreated = service.create(videoParams);
-      const duplicedVideo = service.create(videoParams);
-      const expectedMessage = "Duplicate video id!";
+      service.create(videoParams);
       
-      expect(typeof (duplicedVideo)).toBe("object");
-      expect(duplicedVideo["message"]).toEqual(expectedMessage);
+      expect(() => {
+        service.create(videoParams);
+      }).toThrow(HttpException);
     });
   });
 });
