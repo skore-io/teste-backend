@@ -18,8 +18,8 @@ describe('VideosService', () => {
     expect(service).toBeDefined();
   });
 
-  describe("Create video", () => {
-    it("should return a object video with watched false", () => {      
+  describe("creating a video", () => {
+    it("must return a video object with a key watched equal to false", () => {      
       const videoParams: CreateVideoDto = {
         "id": 1,
         "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
@@ -48,9 +48,8 @@ describe('VideosService', () => {
     });
   });
 
-  describe("Create duplicated video", () => {
+  describe("creating a video that already exists", () => {
     it("should return a error", () => {
-
       const videoParams: CreateVideoDto = {
         "id": 1,
         "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
@@ -66,6 +65,35 @@ describe('VideosService', () => {
       expect(() => {
         service.create(videoParams);
       }).toThrow(HttpException);
+    });
+  });
+
+  describe("get a list of videos", () => {
+    it("must return a list of 2 videos", () => {
+      const firstVideoParams: CreateVideoDto = {
+        "id": 1,
+        "name": "Batman",
+        "duration": 3010,
+        "provider": "youtube",
+        "media_type": "video",
+        "provider_id": "STKCRSUsyP0",
+        "expires_at": 1580428851394
+      }
+    
+      const secondVideoParams: CreateVideoDto = {
+        "id": 2,
+        "name": "Parafernalha",
+        "duration": 4002,
+        "provider": "youtube",
+        "media_type": "video",
+        "provider_id": "STKCRSUsyP0",
+        "expires_at": 1580428851394
+      }
+      
+      service.create(firstVideoParams);
+      service.create(secondVideoParams);
+
+      expect(service.findAll().length).toEqual(2);
     });
   });
 });

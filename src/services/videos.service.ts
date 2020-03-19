@@ -20,6 +20,10 @@ export class VideosService {
   }
 
   update(videoParams: Video, video: Video): Video {
+    if (videoParams["id"]) {
+      throw new HttpException('Id cannot be edited', 422);
+    }
+
     Object.assign(video, videoParams);
     this.assignWatched(video, false);
    
@@ -31,27 +35,27 @@ export class VideosService {
   }
 
   findOne(videoId): Video {
-    const video = this.videos.find(video => video.id === videoId);
-    
+    const video = this.videos.find(video => video["id"] == videoId);
+    console.log("Video", video);
+
     if (!video) {
       throw new HttpException('Not found video', 404);
     }
     return video;
   } 
 
-  delete(videoId): Object {
+  delete(videoId) {
     const index = this.getIndexVideo(videoId);
     
     if (!this.validIndex(index)) {
       throw new HttpException('Not found video', 404);
     } 
 
-    this.videos.splice(1, index);
-    return this.videos;
+    this.videos.splice(index, 1);
   } 
 
   private getIndexVideo(videoId) {
-    return this.videos.findIndex(video => video.id === videoId);
+    return this.videos.findIndex(video => video.id == videoId);
   }
 
   private validIndex(index) : Boolean {

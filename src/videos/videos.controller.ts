@@ -1,10 +1,9 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { VideosService } from '../services/videos.service';
-import { Video } from '../interfaces/videos.interface';
 import { CreateVideoDto } from '../dto/create-video.dto';
 import { UpdateVideoDto } from '../dto/update-video.dto';
 import { VideoEntity } from '../serializers/video.entity';
-import { VideoListingEntity } from 'src/serializers/videoListing.entity';
+import { VideoListingEntity } from '../serializers/videoListing.entity';
 
 @Controller('videos')
 export class VideosController {
@@ -30,7 +29,8 @@ export class VideosController {
   @Get(':id')
   @UseInterceptors(ClassSerializerInterceptor)
   show(@Param() params): VideoEntity {
-    const video = this.videosService.findOne(params.id);
+    console.log("parms", params["id"])
+    const video = this.videosService.findOne(params["id"]);
     this.videosService.assignWatched(video, true);
     return new VideoEntity(video);
   }
@@ -44,9 +44,8 @@ export class VideosController {
   }
 
   @Delete(':id')
-  delete(@Param() params): Object {
-    const response = this.videosService.delete(params.id);    
-    return response;
+  delete(@Param() params) {
+    this.videosService.delete(params.id);    
   }
 }
 
