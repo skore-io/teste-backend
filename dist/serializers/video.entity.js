@@ -15,7 +15,7 @@ class VideoEntity {
         Object.assign(this, partial);
     }
     get expired() {
-        let timestampNow = new Date().getTime();
+        const timestampNow = new Date().getTime();
         return this.expires_at < timestampNow;
     }
 }

@@ -8,11 +8,11 @@ export class VideoEntity {
   media_type: string;
   provider_id: string;
   expires_at: number;
-  watched?: boolean;
+  watched: boolean;
   
   @Expose()
   get expired(): boolean {
-    let timestampNow = new Date().getTime();
+    const timestampNow = new Date().getTime();
     return this.expires_at < timestampNow;
   }
 

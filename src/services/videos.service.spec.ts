@@ -30,7 +30,7 @@ describe('VideosService', () => {
         "expires_at": 1580428851394
       }
 
-      const expectResult = {
+      const expectedResult = {
         "id": 1,
         "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
         "duration": 3006,
@@ -44,7 +44,7 @@ describe('VideosService', () => {
       const videoCreated = service.create(videoParams);
 
       expect(typeof (videoCreated)).toBe("object");
-      expect(videoCreated).toEqual(expectResult);
+      expect(videoCreated).toEqual(expectedResult);
     });
   });
 

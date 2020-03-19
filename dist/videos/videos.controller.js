@@ -17,6 +17,7 @@ const videos_service_1 = require("../services/videos.service");
 const create_video_dto_1 = require("../dto/create-video.dto");
 const update_video_dto_1 = require("../dto/update-video.dto");
 const video_entity_1 = require("../serializers/video.entity");
+const videoListing_entity_1 = require("../serializers/videoListing.entity");
 let VideosController = class VideosController {
     constructor(videosService) {
         this.videosService = videosService;
@@ -26,7 +27,10 @@ let VideosController = class VideosController {
         return new video_entity_1.VideoEntity(video);
     }
     index() {
-        return this.videosService.findAll();
+        const videos = this.videosService.findAll();
+        return videos.map(video => {
+            return new videoListing_entity_1.VideoListingEntity(video);
+        });
     }
     show(params) {
         const video = this.videosService.findOne(params.id);
@@ -53,6 +57,7 @@ __decorate([
 ], VideosController.prototype, "create", null);
 __decorate([
     common_1.Get(),
+    common_1.UseInterceptors(common_1.ClassSerializerInterceptor),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Array)

@@ -6,7 +6,7 @@ export declare class VideoEntity {
     media_type: string;
     provider_id: string;
     expires_at: number;
-    watched?: boolean;
+    watched: boolean;
     get expired(): boolean;
     constructor(partial: Partial<VideoEntity>);
 }

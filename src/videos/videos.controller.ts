@@ -4,6 +4,7 @@ import { Video } from '../interfaces/videos.interface';
 import { CreateVideoDto } from '../dto/create-video.dto';
 import { UpdateVideoDto } from '../dto/update-video.dto';
 import { VideoEntity } from '../serializers/video.entity';
+import { VideoListingEntity } from 'src/serializers/videoListing.entity';
 
 @Controller('videos')
 export class VideosController {
@@ -18,8 +19,12 @@ export class VideosController {
   }
 
   @Get()
-  index(): Array<Video> {
-    return this.videosService.findAll();
+  @UseInterceptors(ClassSerializerInterceptor)
+  index(): Array<VideoListingEntity> {
+    const videos = this.videosService.findAll();
+    return videos.map( video => { 
+      return new VideoListingEntity(video); 
+    });
   }
 
   @Get(':id')
