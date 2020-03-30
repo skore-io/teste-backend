@@ -4,9 +4,6 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 @Injectable()
 export class AppService {
   private contents = [];
-  getHello(): string {
-    return 'Hello World!';
-  }
 
   createContent(content): any[] {
     let result = this.contents.find(item => item.id === content.id);
@@ -43,6 +40,9 @@ export class AppService {
   setContentById(id:string, content:any){
     let idC = Number(id)
     let objIndex = this.contents.findIndex((obj => obj.id == id));
+    if(objIndex < 0){
+      throw new HttpException('não encontrado', HttpStatus.NOT_FOUND);
+    }
     content.watched = false;
 
     this.contents.splice(objIndex, 1);
@@ -53,6 +53,9 @@ export class AppService {
   removeContentById(id:string){
     let idC = Number(id)
     let objIndex = this.contents.findIndex((obj => obj.id == id));
+    if(objIndex < 0){
+      throw new HttpException('não encontrado', HttpStatus.NOT_FOUND);
+    }
     this.contents.splice(objIndex, 1);
 
     return this.contents;

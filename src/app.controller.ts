@@ -6,11 +6,6 @@ import { Request } from 'express';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Post('add')
   createContent(@Req() request: Request): any[] {
     return this.appService.createContent(request.body);
