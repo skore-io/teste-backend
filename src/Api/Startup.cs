@@ -26,6 +26,7 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGeneration();
             services.AddSingleton<ICollection<Conteudo>>(new HashSet<Conteudo>());
             services.AddControllers();
         }
@@ -43,6 +44,8 @@ namespace Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwaggerGenAndUi();
 
             app.UseEndpoints(endpoints =>
             {
