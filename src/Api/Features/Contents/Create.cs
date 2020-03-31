@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using Api.Models;
 
+using FluentValidation;
+
 using MediatR;
 
 namespace Api.Features.Contents
@@ -25,6 +27,20 @@ namespace Api.Features.Contents
         public string ProviderId { get; set; }
 
         public long ExpiresAt { get; set; }
+    }
+
+    public class CreateValidator : AbstractValidator<Create>
+    {
+        public CreateValidator()
+        {
+            RuleFor(c => c.Id).NotNull();
+            RuleFor(c => c.Name).NotEmpty();
+            RuleFor(c => c.Duration).GreaterThanOrEqualTo(0);
+            RuleFor(c => c.Provider).NotEmpty();
+            RuleFor(c => c.MediaType).NotEmpty();
+            RuleFor(c => c.ProviderId).NotEmpty();
+            RuleFor(c => c.ExpiresAt).NotNull().GreaterThanOrEqualTo(0);
+        }
     }
 
     public class CreateHandler : IRequestHandler<Create, Conteudo>

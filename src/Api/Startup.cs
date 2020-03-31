@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 using Api.Models;
 
+using FluentValidation.AspNetCore;
+
 using MediatR;
 
 using Microsoft.AspNetCore.Builder;
@@ -26,7 +28,13 @@ namespace Api
         {
             services.AddSwaggerGeneration();
             services.AddSingleton<ICollection<Conteudo>>(new HashSet<Conteudo>());
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddFluentValidation(c =>
+                {
+                    c.RegisterValidatorsFromAssembly(GetType().Assembly);
+                    c.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                });
             services.AddMediatR(GetType().Assembly);
         }
 
