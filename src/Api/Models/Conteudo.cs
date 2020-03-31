@@ -14,6 +14,8 @@ namespace Api.Models
 
         public string Provider { get; set; }
 
+        public string ProviderId { get; set; }
+
         public string MediaType { get; set; }
 
         public long ExpiresAt
