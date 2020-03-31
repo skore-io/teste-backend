@@ -61,6 +61,11 @@ namespace Api.Features.Contents
         [HttpPost]
         public async Task<IActionResult> CreateConteudo([FromBody] Create command)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 var result = await _mediator.Send(command);
