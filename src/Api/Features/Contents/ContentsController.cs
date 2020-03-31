@@ -87,6 +87,11 @@ namespace Api.Features.Contents
         [HttpPut]
         public async Task<IActionResult> UpdateConteudo([FromBody] Update command)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             try
             {
                 var result = await _mediator.Send(command);
