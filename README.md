@@ -23,4 +23,3 @@ ___
 # EndPoints
 
 <img src="./assets/api.png">
-___
