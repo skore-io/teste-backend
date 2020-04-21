@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    # environment:
+    #   # Server
+    #   - PORT=3000
+    #   # Database
+    #   - DB_HOST=database
+    #   - DB_PORT=5432
+    #   - DB_NAME=SKORE
+    #   - DB_USER=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_SYNC=TRUE
+    #   - DB_LOGGING=TRUE
+    restart: on-failure
+    volumes:
+      - app_vol:/usr/src/app/
+      - node_modules:/usr/src/app/node_modules/
+    networks:
+      - skore_net
+    # depends_on:
+    #   - database
+  # database:
+  #   image: postgres:11.7-alpine
+  #   container_name: database
+  #   expose:
+  #     - 5432
+  #   ports:
+  #     - 5432:5432
+  #   hostname: database
+  #   environment:
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_DB=SKORE
+  #   networks:
+  #     - skore_net
+
+volumes:
+  app_vol:
+  node_modules:
+
+networks:
+  skore_net:
+    driver: bridge

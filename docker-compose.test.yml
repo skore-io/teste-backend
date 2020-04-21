@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app_test:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.test
+      args:
+        project: app
+    volumes:
+      - testing_vol:/usr/src/app/
+    networks:
+      - skore_net
+
+volumes:
+  testing_vol:
+
+networks:
+  skore_net:
+    driver: bridge
