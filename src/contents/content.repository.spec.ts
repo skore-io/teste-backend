@@ -1,22 +1,40 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { ContentRepository } from './content.repository';
-import { DtoContentCreate } from './dto/content-create.dto';
+import {
+  IContentCreate,
+  IContentUpdate,
+  IContentId,
+} from './content.interfaces';
 import { EnumProviders } from '../common/enums/providers.enum';
 import { EnumMediaType } from '../common/enums/media-type.enum';
 
 describe('ContentRepository', () => {
   let repository: ContentRepository;
 
-  const dtoContentCreate: DtoContentCreate = {
+  const contentCreate: IContentCreate = {
     id: 1,
     name:
       'GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler',
     duration: 3006,
-    provider: EnumProviders.youtube,
-    mediaType: EnumMediaType.video,
+    provider: EnumProviders.YouTube,
+    mediaType: EnumMediaType.Video,
     providerId: 'STKCRSUsyP0',
     expiresAt: 1580428851394,
+  };
+
+  const contentUpdate: IContentUpdate = {
+    name:
+      'GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler',
+    duration: 3006,
+    provider: EnumProviders.YouTube,
+    mediaType: EnumMediaType.Video,
+    providerId: 'STKCRSUsyP0',
+    expiresAt: 1580428851394,
+  };
+
+  const contentId: IContentId = {
+    id: 123,
   };
 
   beforeEach(async () => {
@@ -32,47 +50,68 @@ describe('ContentRepository', () => {
   });
 
   describe('create method', () => {
-    it('should call create with a content input then call save', () => {
-      const save = jest.fn().mockResolvedValue({ test: true });
-      repository.create = jest.fn().mockReturnValue({ save });
+    it('should call insert with a content input', () => {
+      repository.insert = jest.fn();
+      repository.contentCreate(contentCreate);
 
-      repository.contentCreate(dtoContentCreate);
-
-      expect(repository.create).toHaveBeenCalledTimes(1);
-      expect(repository.create).toHaveBeenCalledWith(dtoContentCreate);
-      expect(save).toHaveBeenCalledTimes(1);
+      expect(repository.insert).toHaveBeenCalledTimes(1);
+      expect(repository.insert).toHaveBeenCalledWith(contentCreate);
     });
   });
 
   describe('read method', () => {
     it('should call findOne with the content id', () => {
-      repository.findOne = jest.fn().mockResolvedValue({ test: true });
-      repository.contentRead(123);
+      repository.findOne = jest.fn();
+      repository.contentRead(contentId);
 
       expect(repository.findOne).toHaveBeenCalledTimes(1);
-      expect(repository.findOne).toHaveBeenCalledWith(123);
+      expect(repository.findOne).toHaveBeenCalledWith(contentId);
     });
   });
 
   describe('update method', () => {
-    it('should call update passing two parameters: id, data', () => {
-      repository.update = jest.fn().mockResolvedValue({ test: true });
-      const { id, ...updateData } = dtoContentCreate;
+    it('should find the content then save it', async () => {
+      const save = jest.fn();
+      repository.contentRead = jest.fn().mockResolvedValue({ save });
 
-      repository.contentUpdate(dtoContentCreate);
+      await repository.contentUpdate(contentId, contentUpdate);
 
-      expect(repository.update).toHaveBeenCalledTimes(1);
-      expect(repository.update).toHaveBeenCalledWith({ id }, updateData);
+      expect(repository.contentRead).toHaveBeenCalledTimes(1);
+      expect(repository.contentRead).toHaveBeenCalledWith({ id: contentId.id });
+      expect(save).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not find the content then not save it', async () => {
+      repository.contentRead = jest.fn().mockResolvedValue(null);
+      const spy = jest.spyOn(repository, 'save');
+
+      await repository.contentUpdate(contentId, contentUpdate);
+
+      expect(repository.contentRead).toHaveBeenCalledTimes(1);
+      expect(repository.contentRead).toHaveBeenCalledWith({ id: contentId.id });
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 
   describe('delete method', () => {
     it('should call delete with the content id', () => {
-      repository.delete = jest.fn().mockResolvedValue({ test: true });
-      repository.contentDelete(123);
+      repository.delete = jest.fn();
+      repository.contentDelete(contentId);
 
       expect(repository.delete).toHaveBeenCalledTimes(1);
-      expect(repository.delete).toHaveBeenCalledWith(123);
+      expect(repository.delete).toHaveBeenCalledWith(contentId.id);
+    });
+  });
+
+  describe('setWatched method', () => {
+    it('should call update with the content id and watched status', () => {
+      repository.update = jest.fn();
+      repository.contentSetWatched(contentId);
+
+      expect(repository.update).toHaveBeenCalledTimes(1);
+      expect(repository.update).toHaveBeenCalledWith(contentId, {
+        watched: true,
+      });
     });
   });
 });

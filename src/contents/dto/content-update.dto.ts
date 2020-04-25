@@ -1,8 +1,8 @@
 import {
   IsNotEmpty,
+  IsString,
   IsInt,
   IsPositive,
-  IsString,
   IsEnum,
 } from 'class-validator';
 import { Expose } from 'class-transformer';
@@ -10,12 +10,7 @@ import { Expose } from 'class-transformer';
 import { EnumProviders } from '../../common/enums/providers.enum';
 import { EnumMediaType } from '../../common/enums/media-type.enum';
 
-export class DtoContentCreate {
-  @IsNotEmpty()
-  @IsInt()
-  @IsPositive()
-  public readonly id: number;
-
+export class DtoContentUpdate {
   @IsNotEmpty()
   @IsString()
   public readonly name: string;

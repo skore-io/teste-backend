@@ -1,4 +1,11 @@
-import { BaseEntity, Entity, PrimaryColumn, Column } from 'typeorm';
+import {
+  BaseEntity,
+  Entity,
+  PrimaryColumn,
+  Column,
+  BeforeUpdate,
+  AfterLoad,
+} from 'typeorm';
 
 import { EnumProviders } from '../common/enums/providers.enum';
 import { EnumMediaType } from '../common/enums/media-type.enum';
@@ -23,11 +30,21 @@ export class ContentEntity extends BaseEntity {
   @Column({ type: 'varchar' })
   providerId: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'bigint' })
   expiresAt: number;
 
-  @Column({ type: 'bool', nullable: false, default: true })
+  @Column({ type: 'bool', nullable: false, default: false })
   watched: boolean;
 
   expired: boolean;
+
+  @BeforeUpdate()
+  resetWatched() {
+    this.watched = false;
+  }
+
+  @AfterLoad()
+  calcExpiration() {
+    this.expired = this.expiresAt < new Date().getTime();
+  }
 }
