@@ -1,76 +1,22 @@
-<h1 align="center">Teste Backend</h1>
-<h5 align="center">Nosso teste para conhecer como você codifica no dia-dia</h5>
 
-### Tecnologias na Skore
+**Para rodar os testes:**
 
-Nossa stack para microserviços é a seguinte:
+Inicia o container do postgres
 
-- Typescript
-- Nest.js
-- Jest
+> npm run postgres:start
 
-Sugerimos que tente utilizar o mais próximo disso, mas sinta-se à vontade para utilizar o que te deixar mais confortável
-e que consiga demonstrar o seu melhor.
 
-### Observações
+Cria o banco de dados
 
-Esta é uma avaliação básica de código.
+> npm run database:create
 
-O objetivo é conhecer um pouco do seu conhecimento/práticas código.
+  
+E está tudo pronto para rodar os testes
 
-Recomendamos que você não gaste mais do que 4 - 6 horas.
+> npm run test
 
-Faça um fork deste repositório.
+  
 
-Ao finalizar o teste, submeta um pull request para o repositório que nosso time será notificado.
+**Para rodar a aplicação basta ter o docker-compose e rodar o comando:**
 
-### Tarefas
-
-Com a seguinte representação de um conteúdo:
-
-```json
-{
-  "id": 1,
-  "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
-  "duration": 3006,
-  "provider": "youtube",
-  "media_type": "video",
-  "provider_id": "STKCRSUsyP0",
-  "expires_at": 1580428851394,
-  "watched": false,
-  "expired": false,
-}
-```
-
-Crie endpoints para as seguintes ações:
-
-- [ ] Criação de conteúdo onde o payload será o json informado acima (exceto as propriedades **watched** e **expired**)
-
-- [ ] Edição de conteúdo por **id**
-
-- [ ] Recuperação de conteúdo por **id**
-
-- [ ] Deleção de conteúdo por **id**
-
-### Requisitos
-
-- [ ] Toda vez que um conteúdo for recuperado por **id** deverá ser calculado a propriedade: **expired**
-
-      A propriedade expired é verdadeira quando expires_at for menor que a data atual (ambos timestamp)
-
-- [ ] Toda vez que um conteúdo for recuperado por **id** deverá ser informada a propriedade: **watched**
-
-      A propriedade watched é verdadeira quando o conteúdo já tiver sido obtido alguma vez
-
-- [ ] Caso um conteúdo já existente em memória tente ser criado com o mesmo **id** uma exceção deverá ser lançada
-
-- [ ] Ao editar um conteúdo, o antigo deve ser sobrescrito com o que esta sendo enviado na requisição
-
-      A propriedade watched deve ser false
-
-### Dicas
-
-- Os conteúdos podem ficar em memória, não é necessário persistir os dados
-- Sinta-se a vontade para fazer o código em JS
-- Caso tenha alguma dúvida, tome uma decisão e explique no PR
-- Testes são sempre bem-vindos :smiley:
+> docker compose up
