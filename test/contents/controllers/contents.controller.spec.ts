@@ -3,10 +3,13 @@ import { ContentInputData } from '../../../src/contents/controllers/input/Conten
 import { CreateContent } from '../../../src/contents/use-cases/create-content';
 import { Content } from '../../../src/contents/models/content';
 import { BadRequestException } from '@nestjs/common';
+import { InMemoryRepository } from '../../../src/contents/repository/in-memory-repository';
 
 describe('Contents Controller', () => {
   let controller: ContentsController;
   let createContent: CreateContent;
+  const repotitory = new InMemoryRepository();
+
   const validContent = new ContentInputData(
     1,
     'GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler',
@@ -18,7 +21,7 @@ describe('Contents Controller', () => {
   );
 
   beforeEach(async () => {
-    createContent = new CreateContent();
+    createContent = new CreateContent(repotitory);
     controller = new ContentsController(createContent);
   });
 

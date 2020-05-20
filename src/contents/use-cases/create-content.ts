@@ -7,7 +7,7 @@ export class CreateContent {
   private errors = [];
   private content: Content;
 
-  constructor(@Inject('Repository') private readonly repository: Repository){}
+  constructor(@Inject('Repository') private readonly repository: Repository) {}
 
   public run(content: Content) {
     this.content = content;
