@@ -1,11 +1,13 @@
 import { Content } from '../models/content';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
+import { Repository } from './repository';
 
 @Injectable()
 export class CreateContent {
-  private repository;
   private errors = [];
   private content: Content;
+
+  constructor(@Inject('Repository') private readonly repository: Repository){}
 
   public run(content: Content) {
     this.content = content;
@@ -21,7 +23,7 @@ export class CreateContent {
     this.validateContent();
     if (this.hasErrors()) return;
 
-    this.repository.save(this.content);
+    this.repository.put(this.content);
   }
 
   private validateContent() {

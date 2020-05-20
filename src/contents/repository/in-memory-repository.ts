@@ -1,6 +1,9 @@
 import { Content } from '../models/content';
+import { Injectable } from '@nestjs/common';
+import { Repository } from '../use-cases/repository';
 
-export class InMemoryRepository {
+@Injectable()
+export class InMemoryRepository implements Repository {
   private db = {};
 
   public get(id: number) {
