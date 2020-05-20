@@ -1,8 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ContentsController } from '../src/contents/controllers/contents.controller';
-import { ContentInputData } from '../src/contents/controllers/input/ContentInputData';
-import { CreateContent } from '../src/contents/use-cases/create-content'
-import { Content } from '../src/contents/models/content';
+import { ContentsController } from '../../../src/contents/controllers/contents.controller';
+import { ContentInputData } from '../../../src/contents/controllers/input/ContentInputData';
+import { CreateContent } from '../../../src/contents/use-cases/create-content'
+import { Content } from '../../../src/contents/models/content';
 import { BadRequestException } from '@nestjs/common';
 
 
