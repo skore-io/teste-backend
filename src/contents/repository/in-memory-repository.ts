@@ -13,4 +13,7 @@ export class InMemoryRepository implements Repository {
   public put(content: Content) {
     return (this.db[content.geId()] = content);
   }
+  public remove(id: number) {
+    delete this.db[id];
+  }
 }

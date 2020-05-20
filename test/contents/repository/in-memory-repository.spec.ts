@@ -39,3 +39,15 @@ describe('put', () => {
     expect(addedContent).toEqual(content);
   });
 });
+
+describe('remove', () => {
+  it('removes a content', () => {
+    repository.put(content);
+    repository.remove(1);
+    expect(repository.get(1)).toBeUndefined();
+  });
+
+  it('doesnt throw error when not found', () => {
+    expect(repository.remove(1)).toBeUndefined();
+  });
+});
