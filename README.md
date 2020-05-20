@@ -71,3 +71,69 @@ Crie endpoints para as seguintes ações:
 - Utilize Nestjs com TypeScript
 - Caso tenha alguma dúvida, tome uma decisão e explique no PR
 - Testes são sempre bem-vindos :smiley:
+
+### Documentação
+
+##### Rodando a aplicação
+
+```ssh
+    $ yarn
+    $ yarn run start
+```
+
+##### Rodando os testes
+
+```ssh
+      $ yarn run test
+```
+
+##### Fazendo chamadas a API
+
+- Criar content
+
+```ssh
+$ curl --location --request POST 'localhost:3000/contents' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "id": 2,
+  "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
+  "duration": 3006,
+  "provider": "vimeo",
+  "media_type": "video",
+  "provider_id": "STKCRSUsyP0",
+  "expires_at": 1580428851394
+}'
+```
+
+retornos 200 quando sucesso, 400 em caso de id repetido ou campos nao informados
+
+- Buscando request
+
+```ssh
+      curl --location --request GET 'localhost:3000/contents/2'
+```
+
+retornos 200 ok com o conteudo no body ou 404 quando nao encontrado
+
+- Atualizando request
+
+```ssh
+curl --location --request PUT 'localhost:3000/contents/2' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
+  "duration": 3006,
+  "provider": "vimeo",
+  "media_type": "video",
+  "provider_id": "STKCRSUsyP0",
+  "expires_at": 1580428851394
+}'
+```
+
+retornos 200 quando sucesso, 400 campos nao informados e 404 em caso de not found
+
+- Removendo conteudo
+
+```ssh
+      curl --location --request DELETE 'localhost:3000/contents/2'
+```
