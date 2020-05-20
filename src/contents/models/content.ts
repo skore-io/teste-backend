@@ -1,7 +1,7 @@
-export class Content{
-  private expired = false
-  private watched = false
-  
+export class Content {
+  private expired = false;
+  private watched = false;
+
   constructor(
     private id: number,
     private name: string,
@@ -10,9 +10,9 @@ export class Content{
     private media_type: string,
     private provider_id: string,
     private expires_at: number,
-    ){}
+  ) {}
 
-    public geId(){
-      return this.id
-    }
+  public geId() {
+    return this.id;
+  }
 }

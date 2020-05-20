@@ -1,13 +1,13 @@
-import { Content } from "../models/content";
+import { Content } from '../models/content';
 
-export class InMemoryRepository{
-  private db = {}
+export class InMemoryRepository {
+  private db = {};
 
-  public get(id: number){
-    return this.db[id]
+  public get(id: number) {
+    return this.db[id];
   }
 
-  public put(content: Content){
-    return this.db[content.geId()] = content
+  public put(content: Content) {
+    return (this.db[content.geId()] = content);
   }
 }

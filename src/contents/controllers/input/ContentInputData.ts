@@ -1,4 +1,4 @@
-import { Content } from "../../models/content";
+import { Content } from '../../models/content';
 
 export class ContentInputData {
   constructor(
@@ -8,16 +8,18 @@ export class ContentInputData {
     private provider: string,
     private media_type: string,
     private provider_id: string,
-    private expires_at: number){}
+    private expires_at: number,
+  ) {}
 
-    public getContent(){
-      return new Content(
-        this.id,
-        this.name,
-        this.duration,
-        this.provider,
-        this.media_type,
-        this.provider_id,
-        this.expires_at)
-    }
-};
+  public getContent() {
+    return new Content(
+      this.id,
+      this.name,
+      this.duration,
+      this.provider,
+      this.media_type,
+      this.provider_id,
+      this.expires_at,
+    );
+  }
+}

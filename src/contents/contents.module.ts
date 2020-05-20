@@ -4,6 +4,6 @@ import { CreateContent } from './use-cases/create-content';
 
 @Module({
   controllers: [ContentsController],
-  providers: [CreateContent]
+  providers: [CreateContent],
 })
 export class ContentsModule {}
