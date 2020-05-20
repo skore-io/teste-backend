@@ -15,4 +15,16 @@ export class Content {
   public geId() {
     return this.id;
   }
+
+  public isWatched(): boolean {
+    return this.watched;
+  }
+
+  public setWatched() {
+    this.watched = true;
+  }
+
+  public isExpired() {
+    return this.expires_at < new Date().getTime();
+  }
 }

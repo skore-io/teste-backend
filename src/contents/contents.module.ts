@@ -3,10 +3,12 @@ import { ContentsController } from './controllers/contents.controller';
 import { CreateContent } from './use-cases/create-content';
 import { InMemoryRepository } from './repository/in-memory-repository';
 import { Repository } from './use-cases/repository';
+import { GetContent } from './use-cases/get-content';
 @Module({
   controllers: [ContentsController],
   providers: [
     CreateContent,
+    GetContent,
     {
       provide: 'Repository',
       useClass: InMemoryRepository,

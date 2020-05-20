@@ -22,15 +22,17 @@ export class ContentInputData {
   }
 
   isValid() {
-    
-    return [
-      'id',
-      'name',
-      'duration',
-      'provider',
-      'media_type',
-      'provider_id',
-      'expires_at',
-    ].filter((attribute =>  (this[attribute] != undefined && this[attribute]))).length == 7
+    return (
+      [
+        'id',
+        'name',
+        'duration',
+        'provider',
+        'media_type',
+        'provider_id',
+        'expires_at',
+      ].filter(attribute => this[attribute] != undefined && this[attribute])
+        .length == 7
+    );
   }
 }

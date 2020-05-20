@@ -27,6 +27,7 @@ export class CreateContent {
   }
 
   private validateContent() {
+    this.errors = [];
     if (this.repository.get(this.content.geId())) {
       this.errors.push(`${this.content.geId()} already added`);
     }
