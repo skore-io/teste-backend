@@ -10,15 +10,24 @@ describe('Contents Controller', () => {
   let createContent: CreateContent;
   const repotitory = new InMemoryRepository();
 
-  const validContent = new ContentInputData(
-    1,
-    'GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler',
-    3006,
-    'youtube',
-    'video',
-    'STKCRSUsyP0',
-    1580428851394,
-  );
+  const validContent = {
+      "id": 1,
+      "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
+      "duration": 3006,
+      "provider": "youtube",
+      "media_type": "video",
+      "provider_id": "STKCRSUsyP0",
+      "expires_at": 1580428851394,
+  }
+
+  const invalidContent = {
+    "id": 1,
+    "name": "GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler",
+    "duration": 3006,
+    "provider": "youtube",
+    "media_type": "video",
+    "provider_id": "STKCRSUsyP0",
+}
 
   beforeEach(async () => {
     createContent = new CreateContent(repotitory);
@@ -52,8 +61,18 @@ describe('Contents Controller', () => {
       });
     });
 
-    describe('error', () => {
-      it('trhows a bad request', () => {
+    describe('cant create because of some use case rule', () => {
+      it('throws a bad request', () => {
+        try {
+          controller.create(invalidContent);
+        } catch (error) {
+          expect(error).toEqual(new BadRequestException('Formato objeto invalido'));
+        }
+      });
+    });
+
+    describe('incomplete input', () => {
+      it('throws a bad request', () => {
         const createResult = {
           content: expectedReturn,
           isSuccess: false,

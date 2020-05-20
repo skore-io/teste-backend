@@ -1,15 +1,13 @@
 import { Content } from '../../models/content';
 
 export class ContentInputData {
-  constructor(
-    private id: number,
-    private name: string,
-    private duration: number,
-    private provider: string,
-    private media_type: string,
-    private provider_id: string,
-    private expires_at: number,
-  ) {}
+  public id: number;
+  public name: string;
+  public duration: number;
+  public provider: string;
+  public media_type: string;
+  public provider_id: string;
+  public expires_at: number;
 
   public getContent() {
     return new Content(
@@ -21,5 +19,18 @@ export class ContentInputData {
       this.provider_id,
       this.expires_at,
     );
+  }
+
+  isValid() {
+    
+    return [
+      'id',
+      'name',
+      'duration',
+      'provider',
+      'media_type',
+      'provider_id',
+      'expires_at',
+    ].filter((attribute =>  (this[attribute] != undefined && this[attribute]))).length == 7
   }
 }
