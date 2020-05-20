@@ -27,7 +27,7 @@ describe('create', () => {
     const result = new CreateContent(repotitory).run(content);
     it('returns a truthy result', () => {
       expect(result.content).toEqual(content);
-      expect(result.isSuccess).toBeTruthy();
+      expect(result.isSuccess).toBe(true);
       expect(result.errors).toEqual([]);
     });
   });

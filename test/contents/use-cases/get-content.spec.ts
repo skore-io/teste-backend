@@ -27,7 +27,7 @@ describe('create', () => {
     const result = new GetContent(repotitory).run(1);
     it('returns a truthy result', () => {
       expect(result.content).toEqual(content);
-      expect(result.isSuccess).toBeTruthy();
+      expect(result.isSuccess).toBe(true);
       expect(result.error).toEqual(undefined);
     });
     it('sets as watched', () => {
