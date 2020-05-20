@@ -29,11 +29,11 @@ export class UpdateContent {
   private validateContent() {
     this.error = undefined;
     if (!this.repository.get(this.content.geId())) {
-      this.error = `${this.content.geId()} not found`
+      this.error = `${this.content.geId()} not found`;
     }
   }
 
   private hasErrors() {
-    return !this.error;
+    return this.error;
   }
 }

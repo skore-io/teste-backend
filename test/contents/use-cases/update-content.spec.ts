@@ -22,14 +22,14 @@ describe('update', () => {
     1580428851394,
   );
 
-  oldContent.setWatched()
-  
+  oldContent.setWatched();
+
   describe('content exists', () => {
     const repotitory = new InMemoryRepository();
     jest.spyOn(repotitory, 'get').mockImplementation(() => oldContent);
     const result = new UpdateContent(repotitory).run(newContent);
-    it('returns a falsey result', () => {
-      expect(result.isSuccess).toBeFalsy();
+    it('returns a truthy result', () => {
+      expect(result.isSuccess).toBe(true);
       expect(result.error).toBeUndefined();
     });
   });
@@ -39,7 +39,7 @@ describe('update', () => {
     const result = new UpdateContent(repotitory).run(newContent);
     it('returns a truthy result', () => {
       expect(result.content).toEqual(newContent);
-      expect(result.isSuccess).toBe(true);
+      expect(result.isSuccess).toBe(false);
       expect(result.error).toEqual('1 not found');
     });
 

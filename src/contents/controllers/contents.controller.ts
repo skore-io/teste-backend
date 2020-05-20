@@ -6,16 +6,19 @@ import {
   Get,
   Param,
   NotFoundException,
+  Put,
 } from '@nestjs/common';
 import { ContentInputData } from './input/ContentInputData';
 import { CreateContent } from '../use-cases/create-content';
 import { GetContent } from '../use-cases/get-content';
+import { UpdateContent } from '../use-cases/update-content';
 
 @Controller('contents')
 export class ContentsController {
   constructor(
     private readonly createContent: CreateContent,
     private readonly getContent: GetContent,
+    private readonly updateContent: UpdateContent,
   ) {}
 
   @Get(':id')
@@ -37,7 +40,16 @@ export class ContentsController {
     return createResponse.content;
   }
 
-  forContent(contentInput): import('../models/content').Content {
+  @Put(':id')
+  put(@Param('id') id: number, @Body() contentInput) {
+    contentInput.id = id;
+    const getResponse = this.updateContent.run(this.forContent(contentInput));
+    if (!getResponse.isSuccess) throw new NotFoundException(getResponse.error);
+
+    return getResponse.content;
+  }
+
+  private forContent(contentInput): import('../models/content').Content {
     const input = this.convertInput(contentInput);
     if (this.isValidInput(input)) return input.getContent();
 

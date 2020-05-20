@@ -4,11 +4,13 @@ import { Content } from '../../../src/contents/models/content';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { InMemoryRepository } from '../../../src/contents/repository/in-memory-repository';
 import { GetContent } from '../../../src/contents/use-cases/get-content';
+import { UpdateContent } from '../../../src/contents/use-cases/update-content';
 
 describe('Contents Controller', () => {
   let controller: ContentsController;
   let createContent: CreateContent;
   let getContent: GetContent;
+  let updateContent: UpdateContent;
 
   const repotitory = new InMemoryRepository();
 
@@ -36,7 +38,12 @@ describe('Contents Controller', () => {
   beforeEach(async () => {
     createContent = new CreateContent(repotitory);
     getContent = new GetContent(repotitory);
-    controller = new ContentsController(createContent, getContent);
+    updateContent = new UpdateContent(repotitory);
+    controller = new ContentsController(
+      createContent,
+      getContent,
+      updateContent,
+    );
   });
 
   it('should be defined', () => {
@@ -118,16 +125,67 @@ describe('Contents Controller', () => {
       });
     });
 
-    describe('cant create because of some use case rule', () => {
+    describe('cant get the content', () => {
       const getResult = {
         content: expectedReturn,
         isSuccess: false,
         error: '2 not found',
       };
-      it('throws a bad request', () => {
+      it('throws a not found', () => {
         jest.spyOn(getContent, 'run').mockImplementation(() => getResult);
         try {
           controller.get(2);
+        } catch (error) {
+          expect(error).toEqual(new NotFoundException('2 not found'));
+        }
+      });
+    });
+  });
+
+  describe('update content', () => {
+    const updateInfo = {
+      id: 1,
+      name:
+        'GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler',
+      duration: 3006,
+      provider: 'youtube',
+      media_type: 'video',
+      provider_id: '123',
+      expires_at: 1580428851394,
+    };
+
+    const expectedReturn = new Content(
+      1,
+      'GOTO 2017 • The Many Meanings of Event-Driven Architecture • Martin Fowler',
+      3006,
+      'youtube',
+      'video',
+      '123',
+      1580428851394,
+    );
+    describe('success', () => {
+      it('updates the content', () => {
+        const getResult = {
+          content: expectedReturn,
+          isSuccess: true,
+          error: undefined,
+        };
+        jest.spyOn(updateContent, 'run').mockImplementation(() => getResult);
+
+        expect(controller.put(1, updateInfo)).toEqual(expectedReturn);
+      });
+    });
+
+    describe('cant find the content', () => {
+      const getResult = {
+        content: expectedReturn,
+        isSuccess: false,
+        error: '2 not found',
+      };
+      it('throws a not found', () => {
+        jest.spyOn(updateContent, 'run').mockImplementation(() => getResult);
+        try {
+          controller.put(2, updateInfo);
         } catch (error) {
           expect(error).toEqual(new NotFoundException('2 not found'));
         }
