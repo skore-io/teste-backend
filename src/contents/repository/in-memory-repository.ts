@@ -8,6 +8,6 @@ export class InMemoryRepository{
   }
 
   public put(content: Content){
-    this.db[content.geId()] = content 
+    return this.db[content.geId()] = content
   }
 }
