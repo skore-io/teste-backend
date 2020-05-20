@@ -5,12 +5,14 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { InMemoryRepository } from '../../../src/contents/repository/in-memory-repository';
 import { GetContent } from '../../../src/contents/use-cases/get-content';
 import { UpdateContent } from '../../../src/contents/use-cases/update-content';
+import { RemoveContent } from '../../../src/contents/use-cases/remove-content';
 
 describe('Contents Controller', () => {
   let controller: ContentsController;
   let createContent: CreateContent;
   let getContent: GetContent;
   let updateContent: UpdateContent;
+  let removeContent: RemoveContent;
 
   const repotitory = new InMemoryRepository();
 
@@ -39,10 +41,12 @@ describe('Contents Controller', () => {
     createContent = new CreateContent(repotitory);
     getContent = new GetContent(repotitory);
     updateContent = new UpdateContent(repotitory);
+    removeContent = new RemoveContent(repotitory);
     controller = new ContentsController(
       createContent,
       getContent,
       updateContent,
+      removeContent,
     );
   });
 
@@ -190,6 +194,12 @@ describe('Contents Controller', () => {
           expect(error).toEqual(new NotFoundException('2 not found'));
         }
       });
+    });
+  });
+  describe('remove content', () => {
+    it('throws a not found', () => {
+      jest.spyOn(repotitory, 'remove').mockImplementation(() => undefined);
+      expect(controller.delete(1)).toBe(undefined);
     });
   });
 });

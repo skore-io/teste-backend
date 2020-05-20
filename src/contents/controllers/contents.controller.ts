@@ -7,11 +7,13 @@ import {
   Param,
   NotFoundException,
   Put,
+  Delete,
 } from '@nestjs/common';
 import { ContentInputData } from './input/ContentInputData';
 import { CreateContent } from '../use-cases/create-content';
 import { GetContent } from '../use-cases/get-content';
 import { UpdateContent } from '../use-cases/update-content';
+import { RemoveContent } from '../use-cases/remove-content';
 
 @Controller('contents')
 export class ContentsController {
@@ -19,6 +21,7 @@ export class ContentsController {
     private readonly createContent: CreateContent,
     private readonly getContent: GetContent,
     private readonly updateContent: UpdateContent,
+    private readonly removeContent: RemoveContent,
   ) {}
 
   @Get(':id')
@@ -47,6 +50,11 @@ export class ContentsController {
     if (!getResponse.isSuccess) throw new NotFoundException(getResponse.error);
 
     return getResponse.content;
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: number) {
+    return this.removeContent.run(id);
   }
 
   private forContent(contentInput): import('../models/content').Content {
