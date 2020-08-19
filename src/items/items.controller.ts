@@ -26,13 +26,7 @@ export class ItemsController {
     @Get(':id')
     getOne(@Param('id') id: number) {
         try {
-            let item = this.itemsService.getOneItem(Number(id))
-            if( new Date().getTime() > new Date(item.expire_at).getTime() ) {
-                item.expired = true;
-            } else {
-                item.expired = false;
-            }
-            return item;
+            return this.itemsService.getOneItem(Number(id))
         } catch (e) {
             throw new BadRequestException(e.message);
         }
@@ -57,7 +51,7 @@ export class ItemsController {
     @Delete(':id')
     deleteOne(@Param('id') id: number) {
         try {
-            return this.itemsService.deleteItem(Number(id))
+            return this.itemsService.deleteOneItem(Number(id))
         } catch(e) {
             throw new BadRequestException(e.message);
         }
