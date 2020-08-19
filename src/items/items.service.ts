@@ -5,8 +5,7 @@ import { UpdateItemDto } from './dto/updateItem.dto';
 @Injectable()
 
 export class ItemsService {
-
-    private lastId          = 0;
+  
     private items           = [];
 
     createItem(data: CreateItemDto) {
