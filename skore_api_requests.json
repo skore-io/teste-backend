@@ -1,0 +1,187 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2020-09-04T15:11:33.970Z",
+  "__export_source": "insomnia.desktop.app:v2020.3.3",
+  "resources": [
+    {
+      "_id": "req_fac631bb6d794b57ac0877bd3fe1e011",
+      "authentication": {},
+      "body": {},
+      "created": 1599094710656,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1599096156945,
+      "method": "GET",
+      "modified": 1599096496880,
+      "name": "Get all",
+      "parameters": [],
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url }}/contents",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_853933cf838f44f880583b3bba94b35d",
+      "created": 1599094350870,
+      "description": "",
+      "modified": 1599094350870,
+      "name": "Skore API",
+      "parentId": null,
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_c866d1f992b94a9082c88e6b267bdb7b",
+      "authentication": {},
+      "body": {},
+      "created": 1599094376216,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1599096156920,
+      "method": "GET",
+      "modified": 1599229855181,
+      "name": "Get content",
+      "parameters": [],
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url }}/contents/3",
+      "_type": "request"
+    },
+    {
+      "_id": "req_6031b15562e14d43a0cade36ffff0d8a",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"id\": 1,\n  \"name\": \"Full Stack applications with JavaScript\",\n  \"duration\": 3006,\n  \"provider\": \"youtube\",\n  \"media_type\": \"video\",\n  \"provider_id\": \"STKCRSUsyP0\",\n  \"expires_at\": 1580428851394\n}"
+      },
+      "created": 1599094619941,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_4f11cc4e695f42e78f6ebb736b3efb40",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1599096156907.5,
+      "method": "POST",
+      "modified": 1599229754870,
+      "name": "Create content",
+      "parameters": [],
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url }}/contents",
+      "_type": "request"
+    },
+    {
+      "_id": "req_4ef74441aaad463ab835c33f413a048e",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"id\": 3,\n  \"name\": \"Full Stack apps\",\n  \"duration\": 3006,\n  \"provider\": \"youtube\",\n  \"media_type\": \"video\",\n  \"provider_id\": \"STKCRSUsyP0\",\n  \"expires_at\": 1580428851394\n}"
+      },
+      "created": 1599096156895,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_8c495465bafe40cd8d21721367678aa3",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1599096156895,
+      "method": "PUT",
+      "modified": 1599229817069,
+      "name": "Update content",
+      "parameters": [],
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url }}/contents",
+      "_type": "request"
+    },
+    {
+      "_id": "req_9b23b48a3eb24d3f9474ae6f270134f9",
+      "authentication": {},
+      "body": {},
+      "created": 1599096513247,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1599096156845,
+      "method": "DELETE",
+      "modified": 1599229867628,
+      "name": "Delete content",
+      "parameters": [],
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url }}/contents/2",
+      "_type": "request"
+    },
+    {
+      "_id": "env_c9f5eaeeb7cbe3ca4f4bf8ff29c055ac2eded8e6",
+      "color": null,
+      "created": 1599094351069,
+      "data": {
+        "base_url": "localhost:3000"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "isPrivate": false,
+      "metaSortKey": 1599094351069,
+      "modified": 1599094366835,
+      "name": "Base Environment",
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_c9f5eaeeb7cbe3ca4f4bf8ff29c055ac2eded8e6",
+      "cookies": [],
+      "created": 1599094351074,
+      "modified": 1599094351074,
+      "name": "Default Jar",
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_88f819ff3bfc4955bb72732b138b6e76",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1599094350881,
+      "fileName": "Skore API",
+      "modified": 1599094350881,
+      "parentId": "wrk_853933cf838f44f880583b3bba94b35d",
+      "_type": "api_spec"
+    }
+  ]
+}

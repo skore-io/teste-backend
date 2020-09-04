@@ -71,3 +71,7 @@ Crie endpoints para as seguintes ações:
 - Utilize Nestjs com TypeScript
 - Caso tenha alguma dúvida, tome uma decisão e explique no PR
 - Testes são sempre bem-vindos :smiley:
+
+# Executar as requisições via Insomnia
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Skore%20API&uri=https%3A%2F%2Fgist.githubusercontent.com%2FGabrielCC163%2Fa18deb77ecdfee6a3c72cff163fbb395%2Fraw%2Fe2dba3ad4df24d1ca83162bad1268dec3066fa22%2Fskore_api_requests.json)
