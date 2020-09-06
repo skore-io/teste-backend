@@ -59,7 +59,6 @@ export class ContentsService {
   }
   delete(contentId: number): Content {
     const content: Content = this.contents[contentId]
-
     if (!content) {
       throw new Error('The related content was not found to delete')
     }

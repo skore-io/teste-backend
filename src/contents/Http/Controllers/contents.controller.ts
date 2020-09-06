@@ -44,7 +44,7 @@ export class ContentsController {
       throw new HttpException(err.message, HttpStatus.NOT_FOUND)
     }
   }
-  @Delete()
+  @Delete(':id')
   async delete(@Param('id') contentId: number): Promise<Content> {
     try {
       return this.service.delete(contentId)

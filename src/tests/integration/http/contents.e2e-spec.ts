@@ -38,7 +38,7 @@ describe('Contents', () => {
     find: () => content,
     create: () => content,
     update: () => content,
-    delete: () => jest.fn(),
+    delete: () => content,
   }
 
   beforeAll(async () => {
@@ -76,6 +76,7 @@ describe('Contents', () => {
   it('/DELETE contents', () => {
     return request(app.getHttpServer())
       .delete(`/contents/${content.id}`)
+      .expect(HttpStatus.OK)
       .expect(service.delete())
   })
 })
