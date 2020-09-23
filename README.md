@@ -33,7 +33,7 @@ Com a seguinte representação de um conteúdo:
   "provider": "youtube",
   "media_type": "video",
   "provider_id": "STKCRSUsyP0",
-  "expired_at": 1580428851394,
+  "expires_at": 1580428851394,
   "watched": false,
   "expired": false
 }
@@ -53,7 +53,7 @@ Crie endpoints para as seguintes ações:
 
 - [ ] Toda vez que um conteúdo for recuperado por **id** deverá ser calculado a propriedade: **expired**
 
-      A propriedade expired é verdadeira quando **expired_at** for menor que a data atual (ambos timestamp)
+      A propriedade expired é verdadeira quando **expires_at** for menor que a data atual (ambos timestamp)
 
 - [ ] Toda vez que um conteúdo for recuperado por **id** deverá ser informada a propriedade: **watched**
 
